@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./home/Header";
+import Home from "./components/Home/Home";
+import Login from "./auth/Login";
+import {Container} from '@material-ui/core';
+import CreatePost from './components/CreatePost/CreatePost';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NavBar from './components/NavBar/NavBar';
+import Sample from './Sample';
+import CompletePost from "./components/CompletePost/CompletePost";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  
+  return(
+    
+   <Router>
+    
+      <NavBar />
+      
+      <Switch>
+        <Route path="/create" component={CreatePost} />
+        <Route path="/completePost/:post" component={CompletePost} />
+        <Route path="/" component={Home} >
+          </Route>
+      </Switch>
+    
+    
+    </Router>
   );
+  
 }
 
 export default App;
+/*
+  */
