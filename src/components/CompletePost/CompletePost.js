@@ -1,26 +1,42 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import {Paper,Typography,Container,Grid,ButtonBase,TextField} from '@material-ui/core';
+import {Paper,Typography,Container,Grid,ButtonBase,TextField,Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import useStyles from './styles.js';
-
-
-   
+import uparrow from  '../.././images/up-arrow.png';
+import {useHistory} from 'react-router-dom';
+import Icon from '@material-ui/core/Icon';
+import SendIcon from '@material-ui/icons/Send';
 
 const CompletePost = (props) => {
     const classes = useStyles();
-    const post_id=props.match.params.post;
+    const history=useHistory();
+    const post_id1=props.match.params.post;
      const [posts,setPosts]=useState([]);
      const [comments,setComments]=useState([]);
+     const [newcomment,setNewComment]=useState({post_id:post_id1,title:'',body:''});
+     
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/posts/${post_id}`).then(response=>{
+        axios.get(`http://localhost:5000/posts/${post_id1}`).then(response=>{
             setPosts(response.data.post);
             setComments(response.data.comments);
         })
     },[]);
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+     // setNewComment({...newcomment,post_id:post_id1});
+      console.log(newcomment);
+      axios.post('http://localhost:5000/comments',newcomment).then(response=>console.log(response));
+      history.push('/');
+    /*  dispatch(addPost(formData));
+      history.push('/');*/
+  }
+
+
     return (
         <>
           <Container maxwidth="sm" className={classes.con}>
@@ -43,17 +59,47 @@ const CompletePost = (props) => {
           </Grid>
             </Grid>
 
-            <Typography className={classes.commentstr} variant="h4" >
+            <Typography className={classes.commentstr} variant="h3" >
               Comments
             </Typography>
             <Paper className={classes.comments}>
             {comments.map((comment)=>(
-                <div key={comment.title} className={classes.comment}>
-                    <Typography variant="h5" className={classes.title}>{comment.title}</Typography>
-                    <Typography variant="body1" className={classes.title}>{comment.body}</Typography>
-                </div>
+                <Grid container spacing={3} key={comment.gridcomments} className={classes.comment}>
+                    <Grid item xs={12}>
+                    <Typography variant="h4" className={classes.ctitle}>{comment.title}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={10} className={classes.cgrid}>
+                    <Typography variant="body1" className={classes.cbody}>{comment.body}</Typography>
+                    <Typography variant="h6" className={classes.cname}>{comment.name}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={2} className={classes.cgrid}>
+                    <Button><img src={uparrow} className={classes.voteicon}/></Button>
+                    <Typography variant="h6" className={classes.cvotes}>{comment.votes}</Typography>
+                    </Grid>
+                </Grid>
             ))}
-            <TextField></TextField>
+
+              <Typography variant="h4" style={{marginTop:100,marginBottom:40}}>
+                Add a comment
+              </Typography>
+
+            <Paper elevation={3} className={classes.cpaper}>
+            <form onSubmit={handleSubmit} className={classes.form} autoComplete="off">
+              <TextField className={classes.text} variant="standard" name="title" label="Title" fullWidth value={newcomment.title} onChange={(e)=>setNewComment({...newcomment,title:e.target.value})} ></TextField>
+              <TextField className={classes.text} variant="standard" name="body" label="Body" fullWidth value={newcomment.body} onChange={(e)=>setNewComment({...newcomment,body:e.target.value})} ></TextField>
+              <Button
+            variant="contained"
+            color="primary"
+            className={classes.buttonSubmit} 
+            type="submit"
+            className={classes.button}
+            endIcon={<SendIcon/>}
+              ></Button>
+              </form>
+
+            </Paper>
+
+            
             </Paper>
           </Container>
         </>
@@ -61,35 +107,3 @@ const CompletePost = (props) => {
 }
 
 export default CompletePost
-/*
-<div>
-            <Paper >
-                <Typography variant="h5">{posts.title}</Typography>
-            <Grid container spacing={2}>
-          <Grid item>
-              
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={posts.image} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {posts.overview}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {posts.body}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  {posts.created}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item></Grid>
-          </Grid>
-        </Grid>
-            </Paper>
-        </div>*/

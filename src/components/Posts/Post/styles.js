@@ -48,4 +48,8 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  voteicon:{
+    width:50,
+    height:50
+  }
 });

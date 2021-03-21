@@ -14,7 +14,7 @@ const Like = ({post_id}) => {
     useEffect(() => {
         dispatch(isLiked(post_id));
         
-      }, [dispatch]);
+      }, []);
       
       const voted=useSelector((state)=>state.like);
       //const voted1=voted;

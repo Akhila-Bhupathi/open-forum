@@ -42,10 +42,31 @@ export default makeStyles((theme) => ({
         margin:'0 auto',
         position:'relative',
       },
+      gridcomments:{
+        alignItems:'center',
+        padding:30,
+        
+        
+        position:'relative',
+        marginBottom:40,
+      },
       griditem:{
         margin:'0 auto',
         align:'center',
+        padding:10
+        
+      },
+      cvotes:{
+        align:'center',
+        position:'absolute',
+        padding:25,
+      },
+      cgrid:{
+        margin:'0 auto',
+        align:'center',
         padding:20,
+        marginTop:50,
+        marginTop:20,
         
       },
       body:{
@@ -56,7 +77,23 @@ export default makeStyles((theme) => ({
       icon:{
         marginTop:40,
       },
-      name:{
+      voteicon:{
+        width:50,
+        height:50
+      },
+      cname:{
+        marginTop:10
+      },
+      cbody:{
+        paddingLeft:20,
+      },
+      cpaper: {
+        padding: theme.spacing(1),
+        width:'100%',
+        height:'60%',
+        textAlign:'center',
+        margin:'0 auto',
+        marginBottom:40,
         
       },
       date:{
@@ -73,6 +110,12 @@ export default makeStyles((theme) => ({
       },
       commentstr:{
           marginTop:60,
-      }
+          marginBottom:40,
+      },
+      form: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+      },
     }));
     

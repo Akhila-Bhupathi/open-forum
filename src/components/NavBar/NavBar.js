@@ -16,33 +16,40 @@ const NavBar = () => {
     const dispatch=useDispatch();
     const history=useHistory();
     const location=useLocation();
-    const [user,setUser]=useState(JSON.parse(localStorage.getItem('profile')));
+    const [userpro,setUserpro]=useState({google_id:'',name:'',email:'',tumbnail:''});
+    const [user,setUser]=useState();
   console.log(user);
   const [profile,setProfile]=useState({result:'',token:''});
-    const googleSuccess=async(response)=>{
+    const googleSuccess=(response)=>{
         const result=response?.profileObj;
         const token=response?.tokenId;
+        console.log(response);
+        setUserpro({...userpro,google_id:response.profileObj.googleId});
+        setUserpro({...userpro,name:response.profileObj.name});
+        setUserpro({...userpro,email:response.profileObj.email});
+        setUserpro({...userpro,tumbnail:response.profileObj.tumbnail});
+        console.log(userpro);
         
         try{
-            dispatch({type:"AUTH",data:{result,token}});
+      /*      dispatch({type:"AUTH",data:{result,token}});
             dispatch(login(result));
-            history.push('/');
+            history.push('/'); */
         }catch(error){
             console.log(error);
         }
         
     }
-    const googleFailure=async ()=>{
+    const googleFailure=()=>{
         console.log("failed");
     }
-  useEffect(() => {
+ /* useEffect(() => {
     const token=user?.token;
     setUser(JSON.parse(localStorage.getItem('profile')));
     
   }, [location]);
-
+*/
   const logout=()=>{
-    dispatch({type:"LOGOUT"});
+    localStorage.clear();
     history.push("/");
   };
 
@@ -68,9 +75,9 @@ const NavBar = () => {
           </div>
         ) : (
           <GoogleLogin
-          clientId="130831181306-gn9rouj8214vhp3qr7dju1dfe9e2bdbs.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+          clientId="130831181306-gn9rouj8214vhp3qr7dju1dfe9e2bdbs.apps.googleusercontent.com" 
           render={(renderProps) => (
-              <Button className={classes.login} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} color="primary" variant="contained">
+              <Button className={classes.login} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} color="primary" >
                 Sign In
               </Button>
             )}

@@ -17,6 +17,7 @@ import {getPosts} from '../.././actions/posts';
 import {useSelector} from 'react-redux';
 import {useLocation} from 'react-router-dom';
 import axios from 'axios';
+import LeaderBoard from '.././LeaderBoard/LeaderBoard';
 
 const Home = () => {
   /*const [user,setUser]=useState(JSON.parse(localStorage.getItem('profile')));
@@ -33,7 +34,9 @@ const Home = () => {
 
   const [posts,setposts]=useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/posts').then(response=>setposts(response.data));
+    axios.get('https://floating-ridge-28249.herokuapp.com/posts').then(response=>setposts(response.data)).catch((error) => {
+      console.log(error);
+    });
     
   }, []);
   
@@ -41,9 +44,17 @@ const Home = () => {
     return (
       
         <Grow in>
+            <Container fixed>
+          <Grid container  className={classes.gridc}>
+          <Grid item xs={6} className={classes.posts}>
+          <Posts posts={posts} />
+        </Grid>
+        <Grid item xs={6} className={classes.leader}>
+          <LeaderBoard/>
+        </Grid>
+          </Grid>
+          </Container>
             
-          
-            <Posts posts={posts} />
           
             
         </Grow>

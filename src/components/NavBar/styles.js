@@ -61,12 +61,12 @@ export default makeStyles((theme) => ({
   },
   login:{
     display:'flex',
-    justifyContent:'flex-end',
-    color:'blue',
+    fontSize:15,
+    fontWeight:500,
     backgroundColor:'white',
     position:'absolute',
     right:'0',
-    width:'90px',
+    width:'110px',
 
   }
   

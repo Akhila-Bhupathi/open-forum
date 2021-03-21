@@ -8,12 +8,20 @@ export default class Sample extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/posts`)
-      .then(res => {
-        const persons = res;
-        this.setState({ persons });
-        console.log(res);
-      })
+    fetch("https://floating-ridge-28249.herokuapp.com",{  
+          method: 'GET', 
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'uid':localStorage.getItem('uid')
+        },
+          
+        }).then((result) => {        
+          result.json().then((rel) => {
+              console.log(rel)
+          });
+        });
   }
 
   render() {

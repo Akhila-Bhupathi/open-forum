@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/login';
+const url = 'https://floating-ridge-28249.herokuapp.com/auth/login';
 const urlforposts = 'http://localhost:5000/posts';
 const urlforlikes = 'http://localhost:5000/likes';
 

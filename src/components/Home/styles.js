@@ -17,4 +17,7 @@ export default makeStyles((theme) => ({
   heading: {
     color: 'rgba(255,255,255,1)',
   },
+  leader:{
+    position:'sticky',
+  }
 }));
